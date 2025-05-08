@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пятилетки - Игровой интерфейс</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-rows: auto 1fr;
+            grid-template-columns: 280px 1fr 120px;
+            height: 100vh;
+            width: 100%;
+        }
+        
+        /* Шапка */
+        .header {
+            grid-column: 1 / 4;
+            background: #8B0000;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+        }
+        
+        .header img {
+            height: 80px;
+            width: auto;
+        }
+        
+        /* Левое меню */
+        .left-menu {
+            grid-column: 1 / 2;
+            background: #f8f8f8;
+            border-right: 1px solid #ddd;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .fyp-item {
+            margin-bottom: 15px;
+        }
+        
+        .fyp-title {
+            background: #d32f2f;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 4px;
+            user-select: none;
+        }
+        
+        .fyp-title:hover {
+            background: #b71c1c;
+        }
+        
+        .events-list {
+            display: none;
+            padding: 10px 0 10px 20px;
+        }
+        
+        .event-item {
+            padding: 8px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s;
+        }
+        
+        .event-item:hover {
+            background-color: #eee;
+        }
+        
+        /* Центральная панель */
+        .content {
+            grid-column: 2 / 3;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .pitch {
+            text-align: center;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .event-panel {
+            display: none;
+            background: #fff;
+            border: 2px solid #8B0000;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .event-image {
+            width: 100%;
+            height: 200px;
+            background: #ddd;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+        }
+        
+        .event-flavor {
+            font-style: italic;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-left: 3px solid #d32f2f;
+        }
+        
+        .position-selector {
+            margin-bottom: 20px;
+        }
+        
+        .position-selector select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .decisions-panel {
+            display: none;
+        }
+        
+        .decision-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: left;
+            transition: background-color 0.2s;
+        }
+        
+        .decision-btn:hover {
+            background: #e0e0e0;
+        }
+        
+        .effects-panel {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 4px;
+            border-left: 3px solid #5c6bc0;
+        }
+        
+        /* Правое меню */
+        .right-menu {
+            grid-column: 3 / 4;
+            background: #f8f8f8;
+            border-left: 1px solid #ddd;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .tab-btn {
+            padding: 10px;
+            background: #d32f2f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        
+        .tab-btn:hover {
+            background: #b71c1c;
+        }
+        
+        .roles-table {
+            display: none;
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .roles-table th, .roles-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .roles-table th {
+            background-color: #f2f2f2;
+        }
+        
+        .role-image {
+            width: 100px;
+            height: 100px;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+        }
+        
+        .rules-content {
+            display: none;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Утилиты */
+        .active {
+            display: block;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка -->
+        <header class="header">
+            <img src="/api/placeholder/200/100" alt="Логотип игры">
+        </header>
+        
+        <!-- Левое меню с пятилетками и событиями -->
+        <div class="left-menu">
+            <div class="fyp-item">
+                <div class="fyp-title">Революция</div>
+                <div class="events-list">
+                    <div class="event-item" data-event-id="101">Гражданская война</div>
+                    <div class="event-item" data-event-id="102">Интервенция</div>
+                    <div class="event-item" data-event-id="103">Тайный переворот</div>
+                    <div class="event-item" data-event-id="103">Мирный переворот</div>
+                </div>
+            </div>
+            
+            <div class="fyp-item">
+                <div class="fyp-title">Война</div>
+                <div class="events-list">
+                    <div class="event-item" data-event-id="101">Маленькая победоносная война</div>
+                    <div class="event-item" data-event-id="102">Мировая война</div>
+                    <div class="event-item" data-event-id="103">Мировая революция</div>
+                    <div class="event-item" data-event-id="103">Сепаратистское восстание</div>
+                </div>
+            </div>
+            
+            <div class="fyp-item">
+                <div class="fyp-title">Холодная война</div>
+                <div class="events-list">
+                    <div class="event-item" data-event-id="101">Ядерная гонка</div>
+                    <div class="event-item" data-event-id="102">Большая игра</div>
+                    <div class="event-item" data-event-id="103">Информационная война</div>
+                    <div class="event-item" data-event-id="103">Экономическое противостояние</div>
+                </div>
+            </div>
+            <div class="fyp-item">
+                <div class="fyp-title">Технологическая гонка</div>
+                <div class="events-list">
+                    <div class="event-item" data-event-id="101">Космическая гонка</div>
+                    <div class="event-item" data-event-id="102">Гонка вооружений</div>
+                    <div class="event-item" data-event-id="103">Аграрная революция</div>
+                    <div class="event-item" data-event-id="103">Индустриализация</div>
+                </div>
+            </div>
+            <div class="fyp-item">
+                <div class="fyp-title">Культурная революция</div>
+                <div class="events-list">
+                    <div class="event-item" data-event-id="101">Олимпиада</div>
+                    <div class="event-item" data-event-id="102">"Красный" Вудсток</div>
+                    <div class="event-item" data-event-id="103">Технократия</div>
+                    <div class="event-item" data-event-id="103">Трудовая утопия</div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- Центральная панель -->
+        <div class="content">
+            <!-- Питч игры -->
+            <div class="pitch active">
+                <h1>Партия "Партия"</h1>
+                <p>В "Партия "Партия"" вы станете хитрым политиканом советской эпохи, стремящимся накопить личную власть, не забывая при этом заботиться о благе общества.</p>
+                <p>Маневрируйте среди интриг, распределяя ресурсы между отраслями, занимая ключевые должности и тайно преследуя личные цели, определенные вашей секретной ролью.</p>
+                <p>Сможете ли вы успешно балансировать между верностью коммунистическим идеалам и удовлетворением собственных амбиций, чтобы первым достичь победы?</p>
+            </div>
+            
+            <!-- Панель события -->
+            <div class="event-panel">
+                <div class="event-image">
+                    Изображение события
+                </div>
+                <h2 class="event-title">Название события</h2>
+                <div class="event-flavor">
+                    Описание события появится здесь. Исторический контекст и детали ситуации, требующей вашего решения.
+                </div>
+                
+                <div class="position-selector">
+                    <label for="position">Выберите вашу должность:</label>
+                    <select id="position">
+                        <option value="" disabled selected>-- Выберите должность --</option>
+                    </select>
+                </div>
+                
+                <div class="decisions-panel">
+                    <!-- Здесь будут кнопки решений -->
+                </div>
+                
+                <div class="effects-panel">
+                    <h3>Эффекты решения:</h3>
+                    <div class="effects-content"></div>
+                </div>
+            </div>
+            
+            <!-- Панель с ролями -->
+            <div class="roles-table">
+                <h2>Роли в игре</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Изображение</th>
+                            <th>Описание роли</th>
+                        </tr>
+                    </thead>
+                    <tbody id="roles-tbody">
+                        <!-- Здесь будут строки с ролями -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Панель с правилами -->
+            <div class="rules-content">
+                <h2>Правила игры</h2>
+                <div class="rules-text">
+                    <h3>Основные принципы игры "Пятилетки"</h3>
+                    <p>1. <strong>Цель игры:</strong> Успешно провести страну через период пятилеток, балансируя экономические, социальные и политические показатели.</p>
+                    <p>2. <strong>Ход игры:</strong> Игроки выбирают события из различных пятилеток и принимают решения от лица разных должностей.</p>
+                    <p>3. <strong>Решения:</strong> Каждое решение имеет краткосрочные и долгосрочные последствия, которые отражаются на состоянии страны.</p>
+                    <p>4. <strong>Роли:</strong> В зависимости от выбранной должности, доступны разные варианты решений и стратегий.</p>
+                    <p>5. <strong>Победа:</strong> Игра завершается по окончании выбранной пятилетки, и оценивается общий результат действий игрока.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Правое меню -->
+        <div class="right-menu">
+            <button class="tab-btn" id="roles-btn">Роли</button>
+            <button class="tab-btn" id="rules-btn">Правила</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Данные для загрузки (имитация загрузки из JSON файлов)
+            // В реальном сценарии эти данные будут загружаться из файлов positions.json, decisions.json и roles.json
+            
+            const positionsData = {
+                "positions": [
+                    {"id": "1", "name": "Министр обороны"},
+                    {"id": "2", "name": "Министр внутренних дел"},
+                    {"id": "3", "name": "Министр промышленности"},
+                    {"id": "4", "name": "Министр сельского хозяйства"},
+                    {"id": "5", "name": "Министр иностранных дел"},
+                    {"id": "6", "name": "Министр внешней"}
+                ]
+            };
+            
+            const decisionsData = {
+                "decisions": {
+                    "1": {  // Секретарь обкома
+                        "101": [  // Индустриализация
+                            {
+                                "id": "1-101-1",
+                                "text": "Мобилизовать все ресурсы на выполнение плана",
+                                "effects": "Промышленность: +15%, Социальное напряжение: +10%, Политическая поддержка: -5%"
+                            },
+                            {
+                                "id": "1-101-2",
+                                "text": "Сфокусироваться на подготовке кадров",
+                                "effects": "Промышленность: +5%, Социальное напряжение: -5%, Политическая поддержка: +10%"
+                            },
+                            {
+                                "id": "1-101-3",
+                                "text": "Сбалансированный подход с учетом социальных нужд",
+                                "effects": "Промышленность: +8%, Социальное напряжение: +2%, Политическая поддержка: +5%"
+                            },
+                            {
+                                "id": "1-101-4",
+                                "text": "Ужесточить дисциплину и ввести трудовые нормативы",
+                                "effects": "Промышленность: +12%, Социальное напряжение: +15%, Политическая поддержка: -10%"
+                            }
+                        ],
+                        "102": [  // Коллективизация
+                            {
+                                "id": "1-102-1",
+                                "text": "Провести полную коллективизацию любой ценой",
+                                "effects": "Сельское хозяйство: -10%, Социальное напряжение: +20%, Политическая поддержка: -15%"
+                            },
+                            {
+                                "id": "1-102-2",
+                                "text": "Постепенно внедрять коллективизацию с помощью пропаганды",
+                                "effects": "Сельское хозяйство: +5%, Социальное напряжение: +5%, Политическая поддержка: +0%"
+                            }
+                        ]
+                    },
+                    "2": {  // Директор завода
+                        "101": [  // Индустриализация
+                            {
+                                "id": "2-101-1",
+                                "text": "Ввести круглосуточные смены",
+                                "effects": "Производство: +20%, Здоровье рабочих: -15%, Качество продукции: -10%"
+                            },
+                            {
+                                "id": "2-101-2",
+                                "text": "Модернизировать оборудование",
+                                "effects": "Производство: +10%, Здоровье рабочих: +5%, Качество продукции: +15%"
+                            }
+                        ]
+                    }
+                    // Другие должности и события будут добавлены здесь
+                }
+            };
+            
+            const rolesData = {
+                "roles": [
+                    {
+                        "id": "1",
+                        "name": "Секретарь обкома",
+                        "image": "/api/placeholder/100/100",
+                        "description": "Партийный руководитель региона, отвечающий за выполнение планов, идеологическую работу и общее руководство всеми сферами жизни области."
+                    },
+                    {
+                        "id": "2",
+                        "name": "Директор завода",
+                        "image": "/api/placeholder/100/100",
+                        "description": "Руководитель промышленного предприятия, отвечающий за выполнение производственных планов, техническое оснащение и кадровую политику."
+                    },
+                    {
+                        "id": "3",
+                        "name": "Председатель колхоза",
+                        "image": "/api/placeholder/100/100",
+                        "description": "Руководитель коллективного хозяйства, отвечающий за сельскохозяйственное производство, распределение ресурсов и выполнение государственных поставок."
+                    },
+                    {
+                        "id": "4",
+                        "name": "Нарком промышленности",
+                        "image": "/api/placeholder/100/100",
+                        "description": "Народный комиссар, отвечающий за целую отрасль промышленности на государственном уровне, принимающий стратегические решения."
+                    },
+                    {
+                        "id": "5",
+                        "name": "Начальник строительства",
+                        "image": "/api/placeholder/100/100",
+                        "description": "Руководитель крупного строительного проекта, отвечающий за сроки, качество, обеспечение рабочей силой и материалами."
+                    }
+                ]
+            };
+            
+            // События для меню пятилетки
+            document.querySelectorAll('.fyp-title').forEach(title => {
+                title.addEventListener('click', function() {
+                    const eventsList = this.nextElementSibling;
+                    if (eventsList.style.display === 'block') {
+                        eventsList.style.display = 'none';
+                    } else {
+                        document.querySelectorAll('.events-list').forEach(list => {
+                            list.style.display = 'none';
+                        });
+                        eventsList.style.display = 'block';
+                    }
+                });
+            });
+            
+            // Загрузка позиций в селект
+            const positionSelect = document.getElementById('position');
+            positionsData.positions.forEach(position => {
+                const option = document.createElement('option');
+                option.value = position.id;
+                option.textContent = position.name;
+                positionSelect.appendChild(option);
+            });
+            
+            // Обработка выбора позиции
+            positionSelect.addEventListener('change', function() {
+                const positionId = this.value;
+                const eventId = document.querySelector('.event-panel').dataset.eventId;
+                
+                if (positionId && eventId) {
+                    loadDecisions(positionId, eventId);
+                }
+            });
+            
+            // Загрузка решений для выбранной должности и события
+            function loadDecisions(positionId, eventId) {
+                const decisionsPanel = document.querySelector('.decisions-panel');
+                decisionsPanel.innerHTML = '';
+                
+                // Проверяем наличие решений для данной комбинации должности и события
+                if (decisionsData.decisions[positionId] && decisionsData.decisions[positionId][eventId]) {
+                    const decisions = decisionsData.decisions[positionId][eventId];
+                    
+                    decisions.forEach(decision => {
+                        const button = document.createElement('button');
+                        button.className = 'decision-btn';
+                        button.textContent = decision.text;
+                        button.dataset.effects = decision.effects;
+                        
+                        button.addEventListener('click', function() {
+                            showEffects(this.dataset.effects);
+                        });
+                        
+                        decisionsPanel.appendChild(button);
+                    });
+                    
+                    decisionsPanel.style.display = 'block';
+                } else {
+                    decisionsPanel.innerHTML = '<p>Для данной должности нет доступных решений по этому событию.</p>';
+                    decisionsPanel.style.display = 'block';
+                }
+                
+                // Скрыть панель эффектов, если она была открыта
+                document.querySelector('.effects-panel').style.display = 'none';
+            }
+            
+            // Показать эффекты решения
+            function showEffects(effectsText) {
+                const effectsPanel = document.querySelector('.effects-panel');
+                const effectsContent = document.querySelector('.effects-content');
+                
+                effectsContent.innerHTML = effectsText.split(', ').map(effect => `<p>${effect}</p>`).join('');
+                effectsPanel.style.display = 'block';
+            }
+            
+            // Обработка клика по событию
+            document.querySelectorAll('.event-item').forEach(eventItem => {
+                eventItem.addEventListener('click', function() {
+                    const eventId = this.dataset.eventId;
+                    const eventTitle = this.textContent;
+                    
+                    // Скрыть все панели
+                    document.querySelector('.pitch').classList.remove('active');
+                    document.querySelector('.roles-table').style.display = 'none';
+                    document.querySelector('.rules-content').style.display = 'none';
+                    
+                    // Показать панель события
+                    const eventPanel = document.querySelector('.event-panel');
+                    eventPanel.dataset.eventId = eventId;
+                    eventPanel.querySelector('.event-title').textContent = eventTitle;
+                    eventPanel.style.display = 'block';
+                    
+                    // Сбросить выбор должности
+                    document.getElementById('position').selectedIndex = 0;
+                    
+                    // Скрыть панели решений и эффектов
+                    document.querySelector('.decisions-panel').style.display = 'none';
+                    document.querySelector('.effects-panel').style.display = 'none';
+                });
+            });
+            
+            // Загрузка данных ролей
+            function loadRoles() {
+                const rolesBody = document.getElementById('roles-tbody');
+                rolesBody.innerHTML = '';
+                
+                rolesData.roles.forEach(role => {
+                    const row = document.createElement('tr');
+                    
+                    const imageCell = document.createElement('td');
+                    const image = document.createElement('div');
+                    image.className = 'role-image';
+                    image.textContent = role.name;
+                    imageCell.appendChild(image);
+                    
+                    const descCell = document.createElement('td');
+                    descCell.innerHTML = `<strong>${role.name}</strong><p>${role.description}</p>`;
+                    
+                    row.appendChild(imageCell);
+                    row.appendChild(descCell);
+                    rolesBody.appendChild(row);
+                });
+            }
+            
+            // Обработка нажатия на кнопки "Роли" и "Правила"
+            document.getElementById('roles-btn').addEventListener('click', function() {
+                // Скрыть другие панели
+                document.querySelector('.pitch').classList.remove('active');
+                document.querySelector('.event-panel').style.display = 'none';
+                document.querySelector('.rules-content').style.display = 'none';
+                
+                // Показать таблицу ролей
+                loadRoles();
+                document.querySelector('.roles-table').style.display = 'block';
+            });
+            
+            document.getElementById('rules-btn').addEventListener('click', function() {
+                // Скрыть другие панели
+                document.querySelector('.pitch').classList.remove('active');
+                document.querySelector('.event-panel').style.display = 'none';
+                document.querySelector('.roles-table').style.display = 'none';
+                
+                // Показать правила
+                document.querySelector('.rules-content').style.display = 'block';
+            });
+            
+            // Функция для загрузки данных из JSON файла (в реальном проекте)
+            // async function loadJSON(url) {
+            //     try {
+            //         const response = await fetch(url);
+            //         return await response.json();
+            //     } catch (error) {
+            //         console.error('Ошибка загрузки JSON:', error);
+            //         return null;
+            //     }
+            // }
+            
+            // Инициализация - в реальном проекте здесь могла бы быть загрузка данных из JSON файлов
+            // async function initializeData() {
+            //     const positions = await loadJSON('positions.json');
+            //     const decisions = await loadJSON('decisions.json');
+            //     const roles = await loadJSON('roles.json');
+            //     
+            //     // Использовать загруженные данные
+            // }
+            // 
+            // initializeData();
+        });
+    </script>
+</body>
+</html>
