@@ -3424,7 +3424,7 @@
                         console.warn(`Image link not found for eventId: ${eventId}. Using placeholder.`);
                         img.src = '/Party-Party/api/placeholder/760/200?text=Image+Not+Found';
                     }
-                    img.alt = eventTitleText;
+                    img.alt = eventTitle;
                     eventImageDiv.appendChild(img);
                         // --- НАЧАЛО ИЗМЕНЕНИЙ ДЛЯ FLAVOR TEXT ---
                     const eventFlavorDiv = eventPanel.querySelector('.event-flavor');
