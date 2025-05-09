@@ -3326,7 +3326,7 @@
                     } else {
                         // Fallback image if no specific image is found for the eventId
                         img.src = '/api/placeholder/760/200?text=Image+Not+Found'; 
-                        console.warn(`Image not found for eventId: ${eventId}. Using placeholder.`);
+                        console.warn(`Image not found for eventId: ${eventId}. ${imageUrl} Using placeholder.`);
                     }
                     // Сбросить выбор должности
                     document.getElementById('position').selectedIndex = 0;
