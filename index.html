@@ -3395,8 +3395,7 @@
                 eventItem.addEventListener('click', function() {
                     const eventId = this.dataset.eventId;
                     const eventTitle = this.textContent;
-                    console.log("Clicked Event ID:", eventId); // Отладка
-                    console.log("eventImageMap content:", eventImageMap); // Отладка (можно вывести один раз при загрузке, если он большой)
+
 
                     // Скрыть все панели
                     document.querySelector('.pitch').classList.remove('active');
@@ -3415,7 +3414,7 @@
                     const img = document.createElement('img');
                     
                     // Find the image link from eventImageMap (using the optimized structure)
-                    const imageUrl = eventImageMap[eventId];
+                    const imageUrl = eventDetailsMap[eventId];
                     console.warn(`Image not found for URL: ${imageUrl}.`);
                     // --- Alternative: If you didn't create eventImageMap and want to use eventImagesData.eventMappings directly ---
                     // const imageMapping = eventImagesData.eventMappings.find(mapping => mapping.id === eventId);
