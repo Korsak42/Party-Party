@@ -3321,7 +3321,7 @@
                     
                     // Find the image link from eventImageMap (using the optimized structure)
                     const imageUrl = eventImageMap[eventId];
-
+                    console.warn(`Image not found for URL: ${imageUrl}.`);
                     // --- Alternative: If you didn't create eventImageMap and want to use eventImagesData.eventMappings directly ---
                     // const imageMapping = eventImagesData.eventMappings.find(mapping => mapping.id === eventId);
                     // const imageUrl = imageMapping ? imageMapping.link : null;
