@@ -397,7 +397,7 @@
                 ]
             };
             const eventImages = {
-                "positions": [
+                "images": [
                     {"id": "101", "link": "event_images/revolution.webp"},
                     {"id": "102", "link": "event_images/intervention.webp"},
                     {"id": "103", "link": "event_images/revolution.webp"},
@@ -3215,7 +3215,11 @@
                     }
                 ]
             };
-            
+                                    // OPTIONAL BUT RECOMMENDED: Convert to a more efficient lookup structure
+            const eventImageMap = eventImagesData.eventMappings.reduce((map, item) => {
+                map[item.id] = item.link;
+                return map;
+            }, {});
             // События для меню пятилетки
             document.querySelectorAll('.fyp-title').forEach(title => {
                 title.addEventListener('click', function() {
@@ -3290,7 +3294,7 @@
                 effectsContent.innerHTML = effectsText.split(', ').map(effect => `<p>${effect}</p>`).join('');
                 effectsPanel.style.display = 'block';
             }
-            
+
             // Обработка клика по событию
             document.querySelectorAll('.event-item').forEach(eventItem => {
                 eventItem.addEventListener('click', function() {
@@ -3314,7 +3318,7 @@
                     const img = document.createElement('img');
                     
                     // Find the image link from eventImageMap (using the optimized structure)
-                    const imageUrl = eventImages[eventId];
+                    const imageUrl = eventImageMap[eventId];
 
                     // --- Alternative: If you didn't create eventImageMap and want to use eventImagesData.eventMappings directly ---
                     // const imageMapping = eventImagesData.eventMappings.find(mapping => mapping.id === eventId);
