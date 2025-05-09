@@ -3330,6 +3330,8 @@
                         console.warn(`Image not found for eventId: ${eventId}. Using placeholder.`);
                         console.warn(`Image not found for URL: ${imageUrl}.`);
                     }
+                    img.alt = eventTitle;
+                    eventImageDiv.appendChild(img); // <--- Вставляем img
                     // Сбросить выбор должности
                     document.getElementById('position').selectedIndex = 0;
                     
