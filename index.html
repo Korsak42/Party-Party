@@ -3414,24 +3414,22 @@
                     const img = document.createElement('img');
                     
                     // Find the image link from eventImageMap (using the optimized structure)
-                    const imageUrl = eventDetailsMap[eventId];
-                    console.warn(`Image not found for URL: ${imageUrl}.`);
-                    // --- Alternative: If you didn't create eventImageMap and want to use eventImagesData.eventMappings directly ---
-                    // const imageMapping = eventImagesData.eventMappings.find(mapping => mapping.id === eventId);
-                    // const imageUrl = imageMapping ? imageMapping.link : null;
-                    // --- End of Alternative ---
-
-                    if (imageUrl) {
-                        img.src = imageUrl;
+                    const details = eventDetailsMap[eventId];
+                    const eventImageDiv = eventPanel.querySelector('.event-image');
+                    eventImageDiv.innerHTML = ''; 
+                    const img = document.createElement('img');
+                    if (details && details.link) {
+                    img.src = details.link; // Используем details.link
+                    img.onerror = function() {
+                    console.error("Error loading image in JS:", details.link);
+                        this.src = '/Party-Party/api/placeholder/760/200?text=Load+Error';
+                        };
                     } else {
-                        // Fallback image if no specific image is found for the eventId
-                        img.src = '/api/placeholder/760/200?text=Image+Not+Found'; 
-                        console.warn(`Image not found for eventId: ${eventId}. Using placeholder.`);
-                        console.warn(`Image not found for URL: ${imageUrl}.`);
+                        console.warn(`Image link not found for eventId: ${eventId}. Using placeholder.`);
+                        img.src = '/Party-Party/api/placeholder/760/200?text=Image+Not+Found';
                     }
-                    img.alt = eventTitle;
-                    eventImageDiv.appendChild(img); // <--- Вставляем img
-
+                    img.alt = eventTitleText;
+                    eventImageDiv.appendChild(img);
                         // --- НАЧАЛО ИЗМЕНЕНИЙ ДЛЯ FLAVOR TEXT ---
                     const eventFlavorDiv = eventPanel.querySelector('.event-flavor');
                     if (eventFlavorDiv) {
