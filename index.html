@@ -3308,15 +3308,26 @@
                     eventPanel.querySelector('.event-title').textContent = eventTitle;
                     eventPanel.style.display = 'block';
                     
+                    const eventImageDiv = eventPanel.querySelector('.event-image');
+                    eventImageDiv.innerHTML = ''; // Очищаем содержимое
+                    
                     const img = document.createElement('img');
-                    // Используем API плейсхолдера. 
-                    // Высота 200px соответствует CSS для .event-image.
-                    // Ширину можно взять побольше, т.к. CSS сделает width: 100% и object-fit: cover.
-                    // Если ваш сервис плейсхолдеров поддерживает текст (например, /api/placeholder/760/200?text=EventName),
-                    // вы можете использовать encodeURIComponent(eventTitle) для уникальных плейсхолдеров.
-                    // В данном случае, используем простой плейсхолдер по аналогии с логотипом.
-                    img.src = `/api/placeholder/760/200`; // Пример URL для изображения события
-                    img.alt = eventTitle; // Хорошо для доступности
+                    
+                    // Find the image link from eventImageMap (using the optimized structure)
+                    const imageUrl = eventImageMap[eventId];
+
+                    // --- Alternative: If you didn't create eventImageMap and want to use eventImagesData.eventMappings directly ---
+                    // const imageMapping = eventImagesData.eventMappings.find(mapping => mapping.id === eventId);
+                    // const imageUrl = imageMapping ? imageMapping.link : null;
+                    // --- End of Alternative ---
+
+                    if (imageUrl) {
+                        img.src = imageUrl;
+                    } else {
+                        // Fallback image if no specific image is found for the eventId
+                        img.src = '/api/placeholder/760/200?text=Image+Not+Found'; 
+                        console.warn(`Image not found for eventId: ${eventId}. Using placeholder.`);
+                    }
                     // Сбросить выбор должности
                     document.getElementById('position').selectedIndex = 0;
                     
