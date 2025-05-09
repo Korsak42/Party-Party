@@ -3300,7 +3300,9 @@
                 eventItem.addEventListener('click', function() {
                     const eventId = this.dataset.eventId;
                     const eventTitle = this.textContent;
-                    
+                    console.log("Clicked Event ID:", eventId); // Отладка
+                    console.log("eventImageMap content:", eventImageMap); // Отладка (можно вывести один раз при загрузке, если он большой)
+
                     // Скрыть все панели
                     document.querySelector('.pitch').classList.remove('active');
                     document.querySelector('.roles-table').style.display = 'none';
