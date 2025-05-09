@@ -3415,8 +3415,7 @@
                     
                     // Find the image link from eventImageMap (using the optimized structure)
                     const details = eventDetailsMap[eventId];
-                    const eventImageDiv = eventPanel.querySelector('.event-image');
-                    eventImageDiv.innerHTML = ''; 
+
                     const img = document.createElement('img');
                     if (details && details.link) {
                     img.src = details.link; // Используем details.link
