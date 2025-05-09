@@ -252,7 +252,7 @@
     <div class="container">
         <!-- Шапка -->
         <header class="header">
-            <img src="/api/placeholder/200/100" alt="Логотип игры">
+            <img src="logo.webp" alt="Логотип игры">
         </header>
         
         <!-- Левое меню с пятилетками и событиями -->
@@ -263,45 +263,45 @@
                     <div class="event-item" data-event-id="101">Гражданская война</div>
                     <div class="event-item" data-event-id="102">Интервенция</div>
                     <div class="event-item" data-event-id="103">Тайный переворот</div>
-                    <div class="event-item" data-event-id="103">Мирный переворот</div>
+                    <div class="event-item" data-event-id="104">Мирный переворот</div>
                 </div>
             </div>
             
             <div class="fyp-item">
                 <div class="fyp-title">Война</div>
                 <div class="events-list">
-                    <div class="event-item" data-event-id="101">Маленькая победоносная война</div>
-                    <div class="event-item" data-event-id="102">Мировая война</div>
-                    <div class="event-item" data-event-id="103">Мировая революция</div>
-                    <div class="event-item" data-event-id="103">Сепаратистское восстание</div>
+                    <div class="event-item" data-event-id="201">Маленькая победоносная война</div>
+                    <div class="event-item" data-event-id="202">Мировая война</div>
+                    <div class="event-item" data-event-id="203">Мировая революция</div>
+                    <div class="event-item" data-event-id="204">Сепаратистское восстание</div>
                 </div>
             </div>
             
             <div class="fyp-item">
                 <div class="fyp-title">Холодная война</div>
                 <div class="events-list">
-                    <div class="event-item" data-event-id="101">Ядерная гонка</div>
-                    <div class="event-item" data-event-id="102">Большая игра</div>
-                    <div class="event-item" data-event-id="103">Информационная война</div>
-                    <div class="event-item" data-event-id="103">Экономическое противостояние</div>
+                    <div class="event-item" data-event-id="301">Ядерная гонка</div>
+                    <div class="event-item" data-event-id="302">Большая игра</div>
+                    <div class="event-item" data-event-id="303">Информационная война</div>
+                    <div class="event-item" data-event-id="304">Экономическое противостояние</div>
                 </div>
             </div>
             <div class="fyp-item">
                 <div class="fyp-title">Технологическая гонка</div>
                 <div class="events-list">
-                    <div class="event-item" data-event-id="101">Космическая гонка</div>
-                    <div class="event-item" data-event-id="102">Гонка вооружений</div>
-                    <div class="event-item" data-event-id="103">Аграрная революция</div>
-                    <div class="event-item" data-event-id="103">Индустриализация</div>
+                    <div class="event-item" data-event-id="401">Космическая гонка</div>
+                    <div class="event-item" data-event-id="402">Гонка вооружений</div>
+                    <div class="event-item" data-event-id="403">Аграрная революция</div>
+                    <div class="event-item" data-event-id="404">Индустриализация</div>
                 </div>
             </div>
             <div class="fyp-item">
                 <div class="fyp-title">Культурная революция</div>
                 <div class="events-list">
-                    <div class="event-item" data-event-id="101">Олимпиада</div>
-                    <div class="event-item" data-event-id="102">"Красный" Вудсток</div>
-                    <div class="event-item" data-event-id="103">Технократия</div>
-                    <div class="event-item" data-event-id="103">Трудовая утопия</div>
+                    <div class="event-item" data-event-id="501">Олимпиада</div>
+                    <div class="event-item" data-event-id="502">"Красный" Вудсток</div>
+                    <div class="event-item" data-event-id="503">Технократия</div>
+                    <div class="event-item" data-event-id="504">Трудовая утопия</div>
                 </div>
             </div>
             
@@ -399,30 +399,25 @@
             const eventImages = {
                 "positions": [
                     {"id": "101", "link": "eventImages/revolution.webp"},
-                    {"id": "102", "link": "Министр внутренних дел"},
-                    {"id": "103", "link": "Министр промышленности"},
-                    {"id": "104", "link": "Министр сельского хозяйства"},
-                    {"id": "201", "link": "Министр иностранных дел"},
-                    {"id": "202", "link": "Министр иностранных дел"},
-                    {"id": "203", "link": "Министр иностранных дел"},
-                    {"id": "204", "link": "Министр иностранных дел"},
-                    {"id": "301", "link": "Министр иностранных дел"},
-                    {"id": "302", "link": "Министр иностранных дел"},
-                    {"id": "303", "link": "Министр иностранных дел"},
-                    {"id": "304", "link": "Министр иностранных дел"},
-                    {"id": "401", "link": "Министр иностранных дел"},
-                    {"id": "402", "link": "Министр иностранных дел"},
-                    {"id": "403", "link": "Министр иностранных дел"},
-                    {"id": "404", "link": "Министр иностранных дел"},
-                    {"id": "501", "link": "Министр иностранных дел"},
-                    {"id": "502", "link": "Министр иностранных дел"},
-                    {"id": "503", "link": "Министр иностранных дел"},
-                    {"id": "504", "link": "Министр иностранных дел"},
-                    {"id": "601", "link": "Министр иностранных дел"},
-                    {"id": "602", "link": "Министр иностранных дел"},
-                    {"id": "603", "link": "Министр иностранных дел"},
-                    {"id": "604", "link": "Министр иностранных дел"},
-                    
+                    {"id": "102", "link": "eventImages/revolution.webp"},
+                    {"id": "103", "link": "eventImages/revolution.webp"},
+                    {"id": "104", "link": "eventImages/revolution.webp"},
+                    {"id": "201", "link": "eventImages/revolution.webp"},
+                    {"id": "202", "link": "eventImages/revolution.webp"},
+                    {"id": "203", "link": "eventImages/revolution.webp"},
+                    {"id": "204", "link": "eventImages/revolution.webp"},
+                    {"id": "301", "link": "eventImages/revolution.webp"},
+                    {"id": "302", "link": "eventImages/revolution.webp"},
+                    {"id": "303", "link": "eventImages/revolution.webp"},
+                    {"id": "304", "link": "eventImages/revolution.webp"},
+                    {"id": "401", "link": "eventImages/revolution.webp"},
+                    {"id": "402", "link": "eventImages/revolution.webp"},
+                    {"id": "403", "link": "eventImages/revolution.webp"},
+                    {"id": "404", "link": "eventImages/revolution.webp"},
+                    {"id": "501", "link": "eventImages/revolution.webp"},
+                    {"id": "502", "link": "eventImages/revolution.webp"},
+                    {"id": "503", "link": "eventImages/revolution.webp"},
+                    {"id": "504", "link": "eventImages/revolution.webp"},                    
                 ]
             };
             
@@ -3313,6 +3308,15 @@
                     eventPanel.querySelector('.event-title').textContent = eventTitle;
                     eventPanel.style.display = 'block';
                     
+                    const img = document.createElement('img');
+                    // Используем API плейсхолдера. 
+                    // Высота 200px соответствует CSS для .event-image.
+                    // Ширину можно взять побольше, т.к. CSS сделает width: 100% и object-fit: cover.
+                    // Если ваш сервис плейсхолдеров поддерживает текст (например, /api/placeholder/760/200?text=EventName),
+                    // вы можете использовать encodeURIComponent(eventTitle) для уникальных плейсхолдеров.
+                    // В данном случае, используем простой плейсхолдер по аналогии с логотипом.
+                    img.src = `/api/placeholder/760/200`; // Пример URL для изображения события
+                    img.alt = eventTitle; // Хорошо для доступности
                     // Сбросить выбор должности
                     document.getElementById('position').selectedIndex = 0;
                     
