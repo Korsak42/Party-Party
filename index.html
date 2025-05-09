@@ -319,9 +319,9 @@
             
             <!-- Панель события -->
             <div class="event-panel">
-                <img class="event-image">
+                <div class="event-image">
                     Изображение события
-                </img>
+                </div>
                 <h2 class="event-title">Название события</h2>
                 <div class="event-flavor">
                     Описание события появится здесь. Исторический контекст и детали ситуации, требующей вашего решения.
@@ -3314,7 +3314,7 @@
                     const img = document.createElement('img');
                     
                     // Find the image link from eventImageMap (using the optimized structure)
-                    const imageUrl = eventImageMap[eventId];
+                    const imageUrl = eventImages[eventId];
 
                     // --- Alternative: If you didn't create eventImageMap and want to use eventImagesData.eventMappings directly ---
                     // const imageMapping = eventImagesData.eventMappings.find(mapping => mapping.id === eventId);
