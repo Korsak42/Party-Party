@@ -3229,9 +3229,10 @@
                     const row = document.createElement('tr');
                     
                     const imageCell = document.createElement('td');
-                    const image = document.createElement('div');
+                    const image = document.createElement('img');
                     image.className = 'role-image';
-                    image.textContent = role.name;
+                    image.src = role.image;
+                    image.alt = role.name; 
                     imageCell.appendChild(image);
                     
                     const descCell = document.createElement('td');
