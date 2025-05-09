@@ -3216,7 +3216,7 @@
                 ]
             };
                                     // OPTIONAL BUT RECOMMENDED: Convert to a more efficient lookup structure
-            const eventImageMap = eventImagesData.eventMappings.reduce((map, item) => {
+            const eventImageMap = eventImages.eventMappings.reduce((map, item) => {
                 map[item.id] = item.link;
                 return map;
             }, {});
