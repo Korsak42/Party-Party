@@ -3409,10 +3409,7 @@
                     eventPanel.style.display = 'block';
                     
                     const eventImageDiv = eventPanel.querySelector('.event-image');
-                    eventImageDiv.innerHTML = ''; // Очищаем содержимое
-                    
-                    const img = document.createElement('img');
-                    
+                    eventImageDiv.innerHTML = '';                    
                     // Find the image link from eventImageMap (using the optimized structure)
                     const details = eventDetailsMap[eventId];
 
