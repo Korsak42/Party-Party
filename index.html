@@ -103,8 +103,8 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         
-        .event-panel {
-            display: none;
+  .event-panel {
+            display: none; /* Остается как есть */
             background: #fff;
             border: 2px solid #8B0000;
             border-radius: 8px;
@@ -113,44 +113,62 @@
             margin: 0 auto;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
+
+        .event-header-content {
+            display: flex; /* Включаем Flexbox для расположения в ряд */
+            align-items: flex-start; /* Выравнивание по верху, если высота блоков разная */
+            gap: 20px; /* Пространство между картинкой и текстовым блоком */
+            margin-bottom: 20px; /* Отступ от селектора должностей */
+        }
+
+        .event-image-container {
+            flex: 0 0 35%; /* Картинка занимает примерно 35% ширины, не растягивается, не сжимается */
+            /* или можно использовать фиксированную ширину: */
+            /* flex-basis: 250px; */ 
+            /* flex-shrink: 0; */
+        }
+
         .event-image {
-    width: 100%; /* или фиксированная ширина */
-    height: 200px;
-    background: #ddd; /* Этот фон будет виден на пустых полях */
-    margin-bottom: 20px;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden; /* Предотвратит выход контента за скругленные углы */
-}
-.event-image img {
-    /* width: 100%; */  /* Можно оставить, но max-width/max-height будут более гибкими с contain */
-    /* height: 100%; */ /* Можно оставить, но max-width/max-height будут более гибкими с contain */
-    max-width: 100%;  /* Изображение не будет шире контейнера */
-    max-height: 100%; /* Изображение не будет выше контейнера */
-    object-fit: contain; /* Ключевое свойство */
-    /* border-radius: 4px; */ /* Оставьте, если хотите скругленные углы у самого изображения.
-                                 Если убрать, а у .event-image есть overflow:hidden и border-radius,
-                                 то углы будут обрезаться по контейнеру, что тоже хорошо.
-                                 Если и у .event-image нет overflow:hidden, то изображение
-                                 может "выглядывать" из-за скругленных углов родителя, если оно cover.
-                                 Для contain это менее критично. */
-    display: block; /* Часто полезно для img, чтобы убрать лишние отступы снизу */
-    margin: auto;   /* Если используете display: block; и хотите центрировать, когда max-width/height срабатывают.
-                       Но у вас уже есть display: flex у родителя, который должен центрировать. */
-}
+            width: 100%; /* Картинка заполняет свой контейнер .event-image-container */
+            height: 200px; /* Фиксированная высота для блока картинки */
+            background: #ddd;
+            /* margin-bottom: 20px; Убрали, так как отступ теперь у .event-header-content */
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            overflow: hidden; /* Для object-fit */
+        }
+        
+        .event-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* или cover, как вам больше нравится */
+            /* border-radius: 4px; Если нужно скруглять саму картинку */
+            display: block;
+        }
+
+        .event-text-content {
+            flex: 1; /* Текстовый блок занимает оставшееся доступное пространство */
+            /* Можно добавить padding, если нужно внутренний отступ */
+        }
+        
+        .event-title {
+            /* margin-bottom: 10px; если нужен отступ между заголовком и flavor */
+            /* Существующие стили для h2 остаются */
+        }
         
         .event-flavor {
             font-style: italic;
-            margin-bottom: 20px;
+            /* margin-bottom: 20px; Убрали, т.к. общий отступ у .event-header-content */
             padding: 10px;
             background: #f9f9f9;
             border-left: 3px solid #d32f2f;
         }
-        
+
         .position-selector {
-            margin-bottom: 20px;
+            margin-bottom: 20px; /* Остается как есть */
         }
         
         .position-selector select {
@@ -332,14 +350,20 @@
                 <p>Сможете ли вы успешно балансировать между верностью коммунистическим идеалам и удовлетворением собственных амбиций, чтобы первым достичь победы?</p>
             </div>
             
-            <!-- Панель события -->
+<!-- Панель события -->
             <div class="event-panel">
-                <div class="event-image">
-                    Изображение события
-                </div>
-                <h2 class="event-title">Название события</h2>
-                <div class="event-flavor">
-                    Описание события появится здесь. Исторический контекст и детали ситуации, требующей вашего решения.
+                <div class="event-header-content"> <!-- Новый общий контейнер для верхнего ряда -->
+                    <div class="event-image-container"> <!-- Контейнер для изображения (если нужен для специфичных стилей изображения) -->
+                        <div class="event-image">
+                            <!-- Изображение будет вставлено сюда JavaScript -->
+                        </div>
+                    </div>
+                    <div class="event-text-content"> <!-- Контейнер для заголовка и flavor текста -->
+                        <h2 class="event-title">Название события</h2>
+                        <div class="event-flavor">
+                            <!-- Описание события будет вставлено сюда JavaScript -->
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="position-selector">
@@ -358,6 +382,7 @@
                     <div class="effects-content"></div>
                 </div>
             </div>
+
             
             <!-- Панель с ролями -->
             <div class="roles-table">
